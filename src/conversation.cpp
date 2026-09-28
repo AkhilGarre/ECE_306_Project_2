@@ -2,6 +2,8 @@
 
 #include <stdexcept>
 
+using namespace std;
+
 Conversation::Conversation() = default;
 
 Conversation::~Conversation() {
@@ -14,7 +16,7 @@ Conversation::Conversation(const Conversation& other)
 
     data_ = new Message[other.capacity_];
     try {
-        for (std::size_t i = 0; i < other.size_; ++i) {
+        for (size_t i = 0; i < other.size_; ++i) {
             data_[i] = other.data_[i];
         }
     } catch (...) {
@@ -33,7 +35,7 @@ Conversation& Conversation::operator=(const Conversation& other) {
     if (other.capacity_ > 0) {
         new_data = new Message[other.capacity_];
         try {
-            for (std::size_t i = 0; i < other.size_; ++i) {
+            for (size_t i = 0; i < other.size_; ++i) {
                 new_data[i] = other.data_[i];
             }
         } catch (...) {
@@ -72,10 +74,10 @@ Conversation& Conversation::operator=(Conversation&& other) noexcept {
 void Conversation::append(Message message) {
     if (size_ == capacity_) {
         // Make room for twice as many messages when the array is full.
-        const std::size_t new_capacity = capacity_ == 0 ? 1 : capacity_ * 2;
+        const size_t new_capacity = capacity_ == 0 ? 1 : capacity_ * 2;
         Message* new_data = new Message[new_capacity];
         try {
-            for (std::size_t i = 0; i < size_; ++i) {
+            for (size_t i = 0; i < size_; ++i) {
                 new_data[i] = data_[i];
             }
             new_data[size_] = message;
@@ -93,13 +95,13 @@ void Conversation::append(Message message) {
     ++size_;
 }
 
-std::size_t Conversation::size() const noexcept {
+size_t Conversation::size() const noexcept {
     return size_;
 }
 
-const Message& Conversation::at(std::size_t i) const {
+const Message& Conversation::at(size_t i) const {
     if (i >= size_) {
-        throw std::out_of_range("Conversation index out of range");
+        throw out_of_range("Conversation index out of range");
     }
     return data_[i];
 }

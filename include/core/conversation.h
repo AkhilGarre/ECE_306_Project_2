@@ -3,6 +3,8 @@
 #include "core/message.h"
 #include <cstddef>
 
+using namespace std;
+
 class Conversation {
 public:
     Conversation();
@@ -15,14 +17,14 @@ public:
 
     void append(Message message);
 
-    std::size_t size() const noexcept;
-    const Message& at(std::size_t i) const;
+    size_t size() const noexcept;
+    const Message& at(size_t i) const;
 
     const Message* begin() const noexcept;
     const Message* end() const noexcept;
 
 private:
     Message* data_ = nullptr;
-    std::size_t size_ = 0;
-    std::size_t capacity_ = 0;
+    size_t size_ = 0;
+    size_t capacity_ = 0;
 };

@@ -1,22 +1,24 @@
 #pragma once
-
 #include <string>
+#include <utility>
 
-// Who wrote this message?
+using namespace std;
+
+// Identifies who wrote a message in the conversation.
 enum class Role { System, User, Assistant };
 
 class Message {
 public:
-    // An empty message is needed when Conversation makes a new array.
+    // Array for messages before they appear.
     Message() : role_(Role::System), content_() {}
 
-    Message(Role role, std::string content)
-        : role_(role), content_(content) {}
+    Message(Role role, string content)
+        : role_(role), content_(std::move(content)) {}
 
     Role role() const noexcept { return role_; }
-    const std::string& content() const noexcept { return content_; }
+    const string& content() const noexcept { return content_; }
 
 private:
     Role role_;
-    std::string content_;
+    string content_;
 };
